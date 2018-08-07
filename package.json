@@ -1,0 +1,20 @@
+{
+    "name": "roomware",
+    "version": "1.0",
+    "description": "mediensteuerung",
+    "main": "test.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https//:github.com/PDA-UR/roomware.git",
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/PDA-UR/roomware/issues"
+    },
+    "homepage": "https://github.com/PDA-UR/roomware#readme"
+        
+}
