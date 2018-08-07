@@ -1,6 +1,6 @@
 {
     "name": "roomware",
-    "version": "1.0",
+    "version": "6.2.0",
     "description": "mediensteuerung",
     "main": "test.js",
     "scripts": {
