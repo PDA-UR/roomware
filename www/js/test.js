@@ -8,6 +8,9 @@ var options = {
     args: ['value1', 'value2', 'value3']
   };
 
+var onBtn = document.getElementById('onBtn');
+onBtn.addEventListener('click', test);
+
 function test(){
 console.log("test.js")
  "use strict"
