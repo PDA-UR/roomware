@@ -1,1 +1,1 @@
-http-server www
+http-server www/website
