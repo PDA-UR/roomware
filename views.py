@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from bin import beamer as beamer
 
 def post_home(request):
@@ -12,12 +12,11 @@ def post_room(request):
 	
 def post_devices(request):
 	return render(request, 'devices.html', {})
+
+def beamer_post(request):
+	beamer.Beamer().changeState()
+	return redirect('media')
 	
-def beamer_on_post(request):
-	beamer.Beamer().on()
-	return render(request, 'media.html', {})
 	
-def beamer_off_post(request):
-	beamer.Beamer().off()
-	return render(request, 'media.html', {})
+		
 	

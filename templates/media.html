@@ -29,40 +29,35 @@
 
     
     <div class="container container-light">
-  <div class="row">
-    <div class="col">
-        <div class="sidenav" id="mySidenav">
-          <a href="#licht" class="active">Beamer</a>
-          <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-            <i class="fa fa-bars"></i>
-          </a>
-        </div>
+  	<div class="row">
+    	<div class="col-4">
+        	<div class="sidenav" id="mySidenav">
+          	<a href="#licht" class="active">Beamer</a>
+          	<a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            	<i class="fa fa-bars"></i>
+          	</a>
+        	</div>
+   		</div>
+		<div class="col-4">
+		<a class="beamer" href="{% url 'beamer' %}"><button id="beamerBtn" type="button">Beamer 1</button></a>
+		</div>
     </div>
-    <div class="col-4">
-        <a class ="beamer_on" href="{% url 'beamer_on' %}"><button id= "onBtn" type="button">Beamer an</button></a>
+  	<div class="row">
+    	<div class="col-4">
+        	<div class="sidenav" id="mySidenav">
+          	<a href="#beamer">Licht</a>
+          	<a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            	<i class="fa fa-bars"></i>
+          	</a>
+        	</div>
+    	</div>
+      	<div class="col-6">
+        	<div class="slidecontainer">
+          	<p>Lichtstärke regeln:</p>
+          	<input type="range" min="1" max="100" value="50">
+        	</div>
+      	</div>
     </div>
-    <div class="col">
-        <a class ="beamer_off" href="{% url 'beamer_off' %}"><button id= "offBtn" type="button">Beamer aus</button></a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-4">
-        <div class="sidenav" id="mySidenav">
-          <a href="#beamer">Licht</a>
-          <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-            <i class="fa fa-bars"></i>
-          </a>
-        </div>
-
-    </div>
-      <div class="col-6">
-        <div class="slidecontainer">
-          <p>Lichtstärke regeln:</p>
-          <input type="range" min="1" max="100" value="50">
-
-        </div>
-      </div>
-        </div>
     <div class="row">
         <div class="col-4">
         <div class="sidenav" id="mySidenav">

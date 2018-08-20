@@ -70,6 +70,16 @@ nav.navbar.navbar-expand-lg.navbar-expand-sm.navbar-expand-md.navbar-light.bg-li
 
 }
 
+#beamerBtn {
+	background-color: #7D003C;
+	padding: 14px 16px;
+	margin-top: 11px;
+	color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
 .sidenav a {
     display: block;
     color: #7D003C;

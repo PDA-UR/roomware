@@ -15,13 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 import views
-from django.conf.urls import url
+from django.conf.urls import url, include
+from rest_framework import routers, serializers, viewsets
+
 
 urlpatterns = [
     url(r'^$', views.post_home, name='home'),
 	url(r'^media/$', views.post_media, name='media'),
 	url(r'^room/$', views.post_room, name='room'),
 	url(r'^devices/$', views.post_devices, name='devices'),
-	url(r'^media/beamer_on/$',views.beamer_on_post, name='beamer_on'),
-	url(r'^media/beamer_off/$',views.beamer_off_post, name='beamer_off'),
+	url(r'^media/beamer/$', views.beamer_post, name='beamer'),
 ]

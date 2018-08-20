@@ -22,4 +22,13 @@ class Beamer():
 		input_off = b'\xbe\xef\x10\x05\x00\x0c\x3e\x11\x11\x01\x00\x18'
 		self.serial.write(input_off)
 	
+	def changeState(self):
+		self.serial.write(b'\xbe\xef\x10\x05\x00\x46\x7e\x11\x11\x01\x00\xff')
+		s = self.serial.read(size=3)
+		s_hex = hex(int.from_bytes(s, byteorder='little'))
+		status = s_hex[2]
+		if str(status) == '1':
+			self.on()
+		if str(status) == '3':
+			self.off()		
 	
