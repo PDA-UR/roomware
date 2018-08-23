@@ -1,24 +1,37 @@
+:root{
+   --MAINCOLOR: #7D003C;
+   --WHITE: #FFF;
+}
+
+
+#content {
+	float:left;
+	padding-left: 80px;
+}
+
+.hide {
+	display: none;
+}
+
 h1{
-    padding: 15px
+    padding: 15px; 
 }
 
-.navbar-nav.navbar-nav-vertical{
-    display: block;
+h3 {
+	margin-top: 0px;
+	padding-top:0px;
 }
 
-nav.navbar.navbar-expand-lg.navbar-expand-sm.navbar-expand-md.navbar-light.bg-light.navbar-vertical{
-    width: fit-content;
-}
 
 .topnav {
   overflow: hidden;
-  background-color: #7D003C;
+  background-color: var(--MAINCOLOR);
 }
 
 .topnav a {
   float: left;
   display: block;
-  color: #fff;
+  color: var(--WHITE);
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -27,13 +40,13 @@ nav.navbar.navbar-expand-lg.navbar-expand-sm.navbar-expand-md.navbar-light.bg-li
 
 .topnav a:hover {
   color: white;
-  background-color: #7D003C;
+  background-color: var(--MAINCOLOR);
   opacity: 0.8;
 }
 
 .topnav .active {
-  color: #fff;
-  background-color: #7D003C;
+  color: var(--WHITE);
+  background-color: var(--MAINCOLOR);
   opacity: 0.8
 }
 
@@ -42,14 +55,22 @@ nav.navbar.navbar-expand-lg.navbar-expand-sm.navbar-expand-md.navbar-light.bg-li
 }
 
 @media screen and (max-width: 600px) {
-  .topnav a:not(:first-child) {display: none;}
+  .topnav a:not(:first-child) {
+  	display: none;
+  }
   .topnav a.icon {
     float: right;
     display: block;
   }
-}
+  .sidenav a:not(:first-child) {
+  		display: none;
+  	}
+  .sidenav a.icon {
+    float: right;
+    display: block;
+  }
 
-@media screen and (max-width: 600px) {
+
   .topnav.responsive {position: relative;}
   .topnav.responsive .icon {
     position: absolute;
@@ -61,47 +82,85 @@ nav.navbar.navbar-expand-lg.navbar-expand-sm.navbar-expand-md.navbar-light.bg-li
     display: block;
     text-align: left;
   }
+  
+  .sidenav.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .sidenav.responsive a {
+    float: none !important;
+    display: block;
+    text-align: left;
+  }
+  
+  .sidenav a {
+    float: left;
+    padding: 14px 16px;
+    color: #f
+  }
+  
+  .sidenav {
+    float: none !important;
+    background-color: var(--MAINCOLOR)!important;
+  }
+  
+  .sidenav.responsive {
+    position: relative;
+    background-color: var(--WHITE) !important;
+  }
+  
+  #content {
+    margin-left: 0;
+    
+  }
+
 }
 
 .sidenav {
     overflow: hidden;
-    background-color: #fff;
-    width: auto;
-
+    background-color: var(--WHITE);
+	margin-top: 41px;
+	float: left;
 }
 
-#beamerBtn {
-	background-color: #7D003C;
-	padding: 14px 16px;
-	margin-top: 11px;
-	color: white;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-}
 
 .sidenav a {
     display: block;
-    color: #7D003C;
-    padding: 14px 16px;
+    color: var(--MAINCOLOR);
     text-decoration: none;
     font-size: 17px;
-    margin-top: 10px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    text-align: center;
 }
 
 .sidenav a:hover {
   color: white;
-  background-color: #7D003C;
+  background-color: var(--MAINCOLOR);
   opacity: 0.8;
 }
 
 .sidenav .active {
-  background-color: #7D003C;
+  background-color: var(--MAINCOLOR);
   color: white;
 }
 
 .sidenav .icon {
   display: none;
+  color: var(--WHITE);
+}
+
+#beamerBtn {
+	background-color: var(--MAINCOLOR);
+	color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 0px;
+}
+
+ul{
+	list-style-type: none;
 }
 
 /* Bordered form */
@@ -121,7 +180,7 @@ input[type=text], input[type=password] {
 
 /* Set a style for all buttons */
 button {
-    background-color: #7D003C;
+    background-color: var(--MAINCOLOR);
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
