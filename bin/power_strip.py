@@ -4,13 +4,22 @@
 import serial 
 import sispm
 
-id = '01:ff:ff:ff:ff'
-
-devices = sispm.connect()
-
-dev = None
-for d in devices:
-	if sispm.getid(d) == id:
-		dev = d
-
-sispm.switchoff(dev, 3)
+class Powerstrip:
+    def __init__(self):
+		super().__init__()
+        self.id = '01:ff:ff:ff:ff'
+        self.devices = sispm.connect()
+        self.dev = None
+        self.power_beamer = 1
+        
+    def switchOn(self):
+        for d in self.devices:
+            if sispm.getid(d) == self.id:
+                self.dev = d
+        sispm.switchon(self.dev, self.power_beamer)
+        
+    def switchOff(self):
+        for d in self.devices:
+            if sispm.getid(d) == self.id:
+                self.dev = d
+        sispm.switchoff(self.dev, self.power_beamer)
