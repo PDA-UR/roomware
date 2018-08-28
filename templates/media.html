@@ -40,14 +40,17 @@
     </div>
     <div id="content">
     	<div id="beamerContent">
-    		<h3> Steuerung Beamer</h3>
+    		<h3>Steuerung Beamer</h3>
     		<a class="beamer" href="{% url 'beamer' %}"><button id="beamerBtn" type="button">Beamer 1</button></a>
     	</div>
     	<div class="slidecontainer hide" id="lightContent">
+            <h3>Steuerung Licht</h3>
     		<p>Lichtstärke regeln:</p>
           	<input type="range" min="1" max="100" value="50">
         </div>
-        <div id="cameraContent">
+        <div class="hide" id="cameraContent">
+            <h3>Steuerung Kamera</h3>
+    		<a class="camera"><button id="cameraBtn" type="button">Kamera 1</button></a>
         </div>
     </div>
     
