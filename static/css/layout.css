@@ -1,5 +1,6 @@
 :root{
    --MAINCOLOR: #7D003C;
+   --HIGHLIGHTCOLOR: #b80058;
    --WHITE: #FFF;
 }
 
@@ -42,14 +43,12 @@ h3 {
 
 .topnav a:hover {
   color: white;
-  background-color: var(--MAINCOLOR);
-  opacity: 0.8;
+  background-color: var(--HIGHLIGHTCOLOR);
 }
 
 .topnav .active {
+  background-color: var(--HIGHLIGHTCOLOR);
   color: var(--WHITE);
-  background-color: var(--MAINCOLOR);
-  opacity: 0.8
 }
 
 .topnav .icon {
