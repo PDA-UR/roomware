@@ -15,10 +15,11 @@
 </head>
 <body>
 <div class="topnav" id="myTopnav">
-  <a href="{% url 'home' %}" class="active">Übersicht</a>
-  <a href="{% url 'media' %}">Mediensteuerung</a>
-  <a href="{% url 'room' %}">Raumbelegung</a>
-  <a href="{% url 'devices' %}">Gerätereservierung</a>
+  <a href="#" id="menuElementTopnavResponsive"></a>
+  <a href="{% url 'home' %}" class="elements">Übersicht</a>
+  <a href="{% url 'media' %}" class="elements">Mediensteuerung</a>
+  <a href="{% url 'room' %}" class="elements active">Raumbelegung</a>
+  <a href="{% url 'devices' %}" class="elements">Gerätereservierung</a>
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
   </a>

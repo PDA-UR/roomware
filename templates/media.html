@@ -17,11 +17,11 @@
 </head>
 <body>
 <div class="topnav" id="myTopnav">
-	<a href="#" id="menuElementTopnavResponsive"></a>
-  <a href="{% url 'home' %}" class="active">Übersicht</a>
-  <a href="{% url 'media' %}">Mediensteuerung</a>
-  <a href="{% url 'room' %}">Raumbelegung</a>
-  <a href="{% url 'devices' %}">Gerätereservierung</a>
+  <a href="#" id="menuElementTopnavResponsive"></a>
+  <a href="{% url 'home' %}" class="elements">Übersicht</a>
+  <a href="{% url 'media' %}" class="elements active">Mediensteuerung</a>
+  <a href="{% url 'room' %}" class="elements">Raumbelegung</a>
+  <a href="{% url 'devices' %}" class="elements">Gerätereservierung</a>
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
   </a>
@@ -31,35 +31,28 @@
     
     <div class="sidenav" id="mySidenav">
     		<a href="#" id="menuElementSidenavResponsive"></a>
-    		<a href="#" class="active">Beamer</a>
-    		<a href="#">Licht</a>
-    		<a href="#">Kamera</a>
+    		<a href="#" class="active" onclick="changeToBeamer()">Projektoren</a>
+    		<a href="#" onclick="changeToSockets()">Steckdosen</a>
+    		<a href="#" onclick="changeToCameras()">Kameras</a>
     		<a href="javascript:void(0);" class="icon" onclick="mySidenavFunction()">
     			<i class="fa fa-bars"></i>
  			</a>
     </div>
     <div id="content">
     	<div id="beamerContent">
-    		<h3>Steuerung Beamer</h3>
-    		<a class="beamer" href="{% url 'beamer' %}"><button id="beamerBtn" type="button">Beamer 1</button></a>
+    		<h3>Steuerung Projektoren</h3>
+    		<a class="beamer" href="{% url 'beamer' %}"><button id="beamerBtn" type="button">Projektor 1</button></a>
     	</div>
-    	<div class="slidecontainer hide" id="lightContent">
-            <h3>Steuerung Licht</h3>
-    		<p>Lichtstärke regeln:</p>
-          	<input type="range" min="1" max="100" value="50">
+    	<div class="hide" id="powerContent">
+            <h3>Steuerung Steckdosen</h3>
+            <a class="sockets"><button id="socketsBtn" type="button">Steckdose 1</button></a>
         </div>
         <div class="hide" id="cameraContent">
-            <h3>Steuerung Kamera</h3>
+            <h3>Steuerung Kameras</h3>
     		<a class="camera"><button id="cameraBtn" type="button">Kamera 1</button></a>
         </div>
     </div>
-    
 
-    
-    
-    
-
-    
     
 <script>
 function myFunction() {
@@ -78,6 +71,42 @@ function mySidenavFunction() {
     } else {
         x.className = "sidenav";
     }
+}
+
+function changeToBeamer() {
+	var beamer = document.getElementById("beamerContent");
+	beamer.className = "";
+	
+	var sockets = document.getElementById("powerContent");
+	sockets.className = "hide";
+	
+	var cameras = document.getElementById("cameraContent");
+	cameras.className = "hide";
+	
+}
+
+function changeToSockets() {
+	var beamer = document.getElementById("beamerContent");
+	beamer.className = "hide";
+	
+	var sockets = document.getElementById("powerContent");
+	sockets.className = "";
+	
+	var cameras = document.getElementById("cameraContent");
+	cameras.className = "hide";
+	
+}
+
+function changeToCameras() {
+	var beamer = document.getElementById("beamerContent");
+	beamer.className = "hide";
+	
+	var sockets = document.getElementById("powerContent");
+	sockets.className = "hide";
+	
+	var cameras = document.getElementById("cameraContent");
+	cameras.className = "";
+	
 }
 </script>
 </body>

@@ -1,6 +1,6 @@
 :root{
    --MAINCOLOR: #7D003C;
-   --HIGHLIGHTCOLOR: #b80058;
+   --HIGHLIGHTCOLOR: #A4004F;
    --WHITE: #FFF;
 }
 
@@ -41,7 +41,7 @@ h3 {
   font-size: 17px;
 }
 
-.topnav a:hover {
+.topnav .elements:hover {
   color: white;
   background-color: var(--HIGHLIGHTCOLOR);
 }
@@ -65,9 +65,9 @@ h3 {
 
 @media screen and (max-width: 600px) {
 
-topnav{
-	padding-left: 0px;
-}
+   .topnav {
+	padding-left: 0px !important;
+  }
 
   .topnav a:not(:first-child) {
   	display: none;
@@ -76,6 +76,7 @@ topnav{
     float: right;
     display: block;
   }
+  
   .sidenav a:not(:first-child) {
   		display: none;
   	}
@@ -84,8 +85,10 @@ topnav{
     display: block;
   }
 
-
-  .topnav.responsive {position: relative;}
+  .topnav.responsive {
+    position: relative;
+  }
+  
   .topnav.responsive .icon {
     position: absolute;
     right: 0;
@@ -122,26 +125,30 @@ topnav{
   .sidenav.responsive {
     position: relative;
     background-color: var(--MAINCOLOR) !important;
-    
   }
   
   #content {
     margin-left: 0;
-    
   }
   
-#menuElementTopnavResponsive{
-	display: block;
-}
-
-#menuElementSidenavResponsive{
-	display: block;
-}  
-
-h1 {
+  #menuElementTopnavResponsive{
+	display: block !important;
+	pointer-events: none;
+	padding-top: 7%;
+  }
+  
+  #menuElementSidenavResponsive{
+	display: block !important;
+	pointer-events: none;
+	padding-top: 7%;
+  }  
+  
+  
+	
+  h1 {
 	margin-left: 0px;
-}
-
+  }
+	
 }
 
 .sidenav {
