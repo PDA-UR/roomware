@@ -25,6 +25,12 @@
   </a>
 </div>
     <h1>Raumbelegungsplan VR4</h1>
+    
+    <a href="{% url 'new_reservation' %}"><h4>Neue Reservierung</h4></a>
+    <div class="reservation_content">
+    	{% block content %}
+    	{% endblock %}
+    </div>
 
 
 <script>

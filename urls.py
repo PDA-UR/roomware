@@ -14,7 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-import views
+#import views
+from website import views
 from django.conf.urls import url, include
 from rest_framework import routers, serializers, viewsets
 
@@ -25,4 +26,5 @@ urlpatterns = [
 	url(r'^room/$', views.post_room, name='room'),
 	url(r'^devices/$', views.post_devices, name='devices'),
 	url(r'^media/beamer/$', views.beamer_post, name='beamer'),
+	url(r'^room/new_reservation/$', views.new_reservation, name='new_reservation'),
 ]

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from bin import beamer as beamer
-
+from website.models import Reservation
 def post_home(request):
 	return render(request, 'index.html', {})
 	
@@ -16,6 +16,8 @@ def post_devices(request):
 def beamer_post(request):
 	beamer.Beamer().changeState()
 	return redirect('media')
+	
+
 	
 	
 		
