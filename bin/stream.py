@@ -6,6 +6,8 @@ import time
 import subprocess
 import os
 
+# source for video capture in python
+# https://github.com/JRodrigoF/AVrecordeR last access 05.09.2018
 
 class VideoRecorder():
 
