@@ -2,6 +2,7 @@
    --MAINCOLOR: #7D003C;
    --HIGHLIGHTCOLOR: #A4004F;
    --WHITE: #FFF;
+   --GREEN: #00ad00;
 }
 
 
@@ -286,4 +287,8 @@ span.psw {
 }
 .slidecontainer.input {
     width = 300px;
+}
+
+.firstcolumn{
+	padding-right: 50px;
 }
