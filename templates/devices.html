@@ -25,6 +25,12 @@
   </a>
 </div>
     <h1>Übersicht Gerätereservierung</h1>
+    
+    <a href="{% url 'new_devices_reservation' %}"><h4>Neue Anfrage zur Gerätereservierung</h4></a>
+    <div class="reservation_content">
+    	{% block content %}
+    	{% endblock %}
+    </div>
 
 
 <script>

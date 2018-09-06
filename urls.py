@@ -26,5 +26,6 @@ urlpatterns = [
 	url(r'^room/$', views.post_room, name='room'),
 	url(r'^devices/$', views.post_devices, name='devices'),
 	url(r'^media/beamer/$', views.beamer_post, name='beamer'),
-	url(r'^room/new_reservation/$', views.new_reservation, name='new_reservation'),
+	url(r'^room/new_room_reservation/$', views.new_room_reservation, name='new_room_reservation'),
+	url(r'^devices/new_devices_reservation/$', views.new_devices_reservation, name='new_devices_reservation'),
 ]
