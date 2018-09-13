@@ -1,6 +1,6 @@
 import numpy as np
 import cv2
-from ffpyplayer.player import MediaPlayer
+#from ffpyplayer.player import MediaPlayer
 
 # sources: https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_gui/py_video_display/py_video_display.html
 # https://stackoverflow.com/questions/46864915/python-add-audio-to-video-opencv
@@ -24,11 +24,11 @@ while(cap.isOpened()):
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
             
-        audio_frame, val = player.get_frame()
+        #audio_frame, val = player.get_frame()
         
-        if val != 'eof' and audio_frame is not None:
+        #if val != 'eof' and audio_frame is not None:
             #audio
-            img, t = audio_frame
+         #   img, t = audio_frame
     else:
         break
 

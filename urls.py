@@ -14,8 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-#import views
 from website import views
+from api import views as view
 from django.conf.urls import url, include
 from rest_framework import routers, serializers, viewsets
 
@@ -28,4 +28,5 @@ urlpatterns = [
 	url(r'^media/beamer/$', views.beamer_post, name='beamer'),
 	url(r'^room/new_room_reservation/$', views.new_room_reservation, name='new_room_reservation'),
 	url(r'^devices/new_devices_reservation/$', views.new_devices_reservation, name='new_devices_reservation'),
+	url(r'^', include('api.urls')),
 ]
