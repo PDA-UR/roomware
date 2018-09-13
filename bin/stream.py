@@ -44,10 +44,8 @@ class VideoRecorder():
                     self.frame_counts += 1
 #                   counter += 1
 #                   timer_current = time.time() - timer_start
-                    #time.sleep(0.016)
-#                   gray = cv2.cvtColor(video_frame, cv2.COLOR_BGR2GRAY)
-#                   cv2.imshow('video_frame', gray)
-#                   cv2.waitKey(1)
+                    cv2.imshow('video_frame', video_frame)
+                    cv2.waitKey(1)
             else:
                 break
 
