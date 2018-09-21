@@ -46,6 +46,15 @@ class VideoRecorder():
 #                   timer_current = time.time() - timer_start
                     cv2.imshow('video_frame', video_frame)
                     cv2.waitKey(1)
+                    #liveaudio = pyaudio.PyAudio()
+                    #stream = liveaudio.open(format=pyaudio.paInt16,
+                     #                 channels=2,
+                      #                rate=32000,
+                       #               input=True,
+                        #              input_device_index=4,
+                         #             frames_per_buffer = 1024)
+                                      
+                    
             else:
                 break
 
@@ -86,9 +95,10 @@ class AudioRecorder():
         self.open = False
         self.rate = 32000
         self.frames_per_buffer = 1024
-        self.channels = 2
+        self.channels = 1
         self.format = pyaudio.paInt16
-        self.audio_filename = "temp_audio.wav"
+        self.audio_file_name = "temp_audio.wav"
+        self.silence = chr(0)*self.frames_per_buffer* self.channels * 2
         print("self.pyaudio")
         self.audio = pyaudio.PyAudio()
         print(self.audio)
@@ -105,6 +115,7 @@ class AudioRecorder():
                                       channels=self.channels,
                                       rate=self.rate,
                                       input=True,
+                                      output=True,
                                       input_device_index=4,
                                       frames_per_buffer = self.frames_per_buffer)
         self.audio_frames = []
@@ -120,9 +131,12 @@ class AudioRecorder():
         #for i in range(0, int(self.rate / self.frames_per_buffer * 5)):    
             data = self.stream.read(self.frames_per_buffer)
             self.audio_frames.append(data)
+            if data == '':
+                data = silence
+            self.stream.write(data)
+            #time.sleep(0.1)
             if self.open==False:
-                break
-            
+                break            
                 
     # Finishes the audio recording therefore the thread too
     def stop(self):

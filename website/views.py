@@ -12,15 +12,21 @@
 # creating an email subject
 # https://stackoverflow.com/questions/7232088/python-subject-not-shown-when-sending-email-using-smtplib-module last access 06.09.2018
 
+# get name of html button
+# https://stackoverflow.com/questions/20448911/get-id-of-one-of-multiple-buttons-in-html-form-in-django last access 19.09.2018
+
 import django
 django.setup()
 
 import smtplib
+from bin import hdmi_controller
 from bin import beamer
 
 from django.shortcuts import render, redirect
 from website.models import RoomReservation, DevicesReservation
 from website.forms import RoomReservationForm, DevicesReservationForm
+
+hdmiController = hdmi_controller.HdmiController()
 
 def post_home(request):
 	return render(request, 'index.html', {})
@@ -34,8 +40,20 @@ def post_room(request):
 def post_devices(request):
 	return render(request, 'devices.html', {})
 
-def beamer_post(request):
-	beamer.Beamer().changeState()
+def hdmi_post(request):
+	action = None
+	output = '0'
+	input = '0'
+	for key in request.POST.keys():
+		if key.startswith('output'):
+			action = key[6:]
+			break
+	if action != None:
+		input = action[0]
+		output = action[1]
+		hdmiController.setInput = input
+		hdmiController.setOutput = output
+		hdmiController.toggleConnection()
 	return redirect('media')
 	
 def new_room_reservation(request):

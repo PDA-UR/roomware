@@ -286,9 +286,38 @@ span.psw {
     cursor: pointer;
 }
 .slidecontainer.input {
-    width = 300px;
+    width: 300px;
 }
 
 .firstcolumn{
 	padding-right: 50px;
+}
+
+#id_user_firstName {
+	margin-left: 30px;
+	margin-right: 30px;
+}
+.rectangle{
+	width: 200px;
+	heigth: 200px;
+	background: var(--MAINCOLOR);
+	border: none;
+    margin-bottom: 10px;
+}
+}
+form {
+	border: none;
+}
+
+.studio_rectangle{
+	width: 500px;
+	heigth: 500px;
+	background: green;
+}
+
+#labor_form {
+	background: red;
+	width: 500px;
+	heigth: 500px;
+
 }
