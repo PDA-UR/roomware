@@ -21,6 +21,7 @@ django.setup()
 import smtplib
 from bin import hdmi_controller
 from bin import beamer
+from bin import stream as stm
 
 from django.shortcuts import render, redirect
 from website.models import RoomReservation, DevicesReservation
@@ -117,3 +118,20 @@ def new_devices_reservation(request):
 	else: 
 		form = DevicesReservationForm()
 	return render(request, 'devices_reservation_inquiry.html', {'form': form})	
+
+def stream(request):
+	stm.file_manager("test")
+	#stm.start_AVrecording("test")
+	"""index = "n"
+	while index == "n":
+		print("while")
+		index = (input())
+		if index == "q":
+			break"""
+	audio_recorder = stm.AudioRecorder()
+	audio_recorder.start()
+	video_recorder = stm.VideoRecorder(audio_recorder)
+	video_recorder.start()
+	print("Stop recording")
+	stm.stop_recording(audio_recorder, video_recorder)
+	return render(request, 'stream.html', {})

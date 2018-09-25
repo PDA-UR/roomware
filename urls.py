@@ -29,4 +29,5 @@ urlpatterns = [
 	url(r'^room/new_room_reservation/$', views.new_room_reservation, name='new_room_reservation'),
 	url(r'^devices/new_devices_reservation/$', views.new_devices_reservation, name='new_devices_reservation'),
 	url(r'^', include('api.urls')),
+	url(r'^stream/$', views.stream, name='stream')
 ]

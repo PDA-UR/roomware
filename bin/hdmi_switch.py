@@ -96,4 +96,4 @@ class hdmiSwitch():
 #hdmiSwitch().switchOn()
 #hdmiSwitch().status()
 #hdmiSwitch().statusIn()
-hdmiSwitch().statusOut()
+#hdmiSwitch().statusOut()
