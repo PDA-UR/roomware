@@ -19,6 +19,24 @@ TEMPLATES = [
 STATICFILES_DIRS = [
 	"/home/roomuser/Roomware/roomware/static/",
 ]
+'''
+MIDDLEWARE = [
+	'django.middleware.security.SecurityMiddleware',
+	'django.contrib.sessions.middleware.SessionMiddleware',
+	'django.middleware.common.CommonMiddleware',
+	'django.middleware.csrf.CsrfViewMiddleware',
+	'django.contrib.auth.middleware.AuthenticationMiddleware',
+	'django.contrib.messages.middleware.MessageMiddleware',
+	'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+]
+SESSION_ENGINE = [
+	'django.contrib.sessions.backends.signed_cookies',
+]
+
+SESSION_COOKIE_HTTPONLY = [
+	'False',
+]'''
 
 INSTALLED_APPS = [
 	'django.contrib.staticfiles',
@@ -38,14 +56,11 @@ STATIC_URL = '/static/'
 
 urlpatterns = [
 	url(r'', include('urls')),
-] 
+]
 
-#DATABASES = {
-#	'default': {
-#		'ENGINE': 'django.db.backends.dummy',
-#		'NAME': 'base.py',
+#DATABASE_ENGINE = {
 #	}
-#}
+
 
 REST_FRAMEWORK = {
 'DEFAULT_PERMISSION_CLASSES': [

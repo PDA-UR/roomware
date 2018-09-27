@@ -21,7 +21,7 @@ from rest_framework import routers, serializers, viewsets
 
 
 urlpatterns = [
-    url(r'^$', views.post_home, name='home'),
+    url(r'^$', views.login, name='home'),
 	url(r'^media/$', views.post_media, name='media'),
 	url(r'^room/$', views.post_room, name='room'),
 	url(r'^devices/$', views.post_devices, name='devices'),
@@ -29,5 +29,6 @@ urlpatterns = [
 	url(r'^room/new_room_reservation/$', views.new_room_reservation, name='new_room_reservation'),
 	url(r'^devices/new_devices_reservation/$', views.new_devices_reservation, name='new_devices_reservation'),
 	url(r'^', include('api.urls')),
-	url(r'^stream/$', views.stream, name='stream')
+	url(r'^stream/$', views.stream, name='stream'),
+	url(r'^login/$', views.login, name='login')
 ]

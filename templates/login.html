@@ -13,16 +13,9 @@
 <body>
     <h1>Mediensteuerung VR4</h1>
     <label>Geben Sie Ihren Benutzernamen und Ihr Passwort in das Formular unten ein, um sich anzumelden. Bitte beachten Sie, dass dafür „Cookies“ in den Sicherheitseinstellungen Ihres Browsers erlaubt sein müssen.</label>
-    <form action="action_page.php">
-        <div class="container">
-            <label for="uname"><b>Benutzername</b></label>
-            <input type="text" name="uname" required>
-
-            <label for="psw"><b>Passwort</b></label>
-            <input type="password" name="psw" required>
-
-            <button type="submit">Anmelden</button>
-        </div>
-    </form>
+    <form method="POST" action> {% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit"> Anmelden </button>
+	</form>
 </body>
 </html>

@@ -22,8 +22,11 @@ from PIL import Image, ImageTk
 class VideoRecorder():
 
     # Video class based on openCV
-    def __init__(self, audio_recorder):
+    def __init__(self, audio_recorder, ndsAccount):
 
+        os.chdir('/home/roomuser/Roomware')
+        self.ndsAccount = ndsAccount
+        self.ndsDirectory = '/' + ndsAccount
         self.open = True
         self.start_record = False
         self.fileName = ''
@@ -77,7 +80,6 @@ class VideoRecorder():
         self.audio_recorder.set_record = self.start_record
         
     def stop_recording(self):
-        print("Stop")
         self.start_record = False
         self.audio_recorder.set_record = self.start_record
         self.button_stop_press = 1
@@ -97,22 +99,50 @@ class VideoRecorder():
     def getFileName(self):
         fileName = self.fileNameEntryBox.get().lower()
         self.fileName = fileName.replace(' ', '')
-        print("speichern", self.fileName)
         self.top.destroy()
-        print("Stop recording")
         frame_counts = self.frame_counts
-        print('frame_counts: ', frame_counts)
         elapsed_time = time.time() - self.start_time
-        print('elapsed_time: ', elapsed_time)
         recorded_fps = frame_counts / elapsed_time
-        print('recorded_fps: ', recorded_fps)
         self.audio_recorder.stop()
-        #self.stop()
+        
+        print('get direction File', os.getcwd())
+        print('direction', os.path.exists(os.getcwd() + self.ndsDirectory), self.ndsDirectory, os.listdir())
+        
+        if os.path.exists(os.getcwd() + self.ndsDirectory) is False:
+            print('direction if', os.path.exists(os.getcwd() + self.ndsDirectory))
+            subprocess.call('mkdir ' + self.ndsAccount, shell=True)
+            
+        self.file_manager()
+        
+        time.sleep(0.1)
+        
+        os.rename(os.getcwd() + '/' + self.video_filename, os.getcwd() + self.ndsDirectory + '/' + self.fileName + "_MOS.avi")
+        os.rename(os.getcwd() + '/' + self.audio_recorder.audio_filename, os.getcwd() + self.ndsDirectory + '/' + self.fileName + ".wav")
+        
+        os.chdir(os.getcwd() + self.ndsDirectory)
     
         # source: https://superuser.com/questions/277642/how-to-merge-audio-and-video-file-in-ffmpeg, last accessed: 13.09.2018
-        cmd = "ffmpeg -i temp_video.avi -i temp_audio.wav -c copy " + self.fileName + ".avi"
+        cmd = "ffmpeg -i " + self.fileName + "_MOS.avi -i " + self.fileName + ".wav -c copy " + self.fileName + ".avi"
         subprocess.call(cmd, shell=True)
         
+    # Required and wanted processing of final files
+    def file_manager(self):
+        print('fileManager')
+        os.chdir('/home/roomuser/Roomware')
+        print('here')
+        local_path = os.getcwd() + self.ndsDirectory + '/'
+        print('1 exists', os.path.exists(local_path + self.fileName + ".wav"))
+        if os.path.exists(local_path +  self.fileName + ".wav"):
+            print('1')
+            os.remove(local_path +  self.fileName + ".wav")
+
+        if os.path.exists(local_path +  self.fileName + "_MOS.avi"):
+            print('2')
+            os.remove(local_path +  self.fileName + "_MOS.avi")
+
+        if os.path.exists(local_path +  self.fileName + ".avi"):
+            print('3')
+            os.remove(local_path +  self.fileName + ".avi")
         
     @property
     def setFileName(self):
@@ -124,7 +154,7 @@ class VideoRecorder():
         
 
     def show_frame(self):
-        _, self.frame = self.video_cap.read()
+        flag, self.frame = self.video_cap.read()
         self.frame = cv2.flip(self.frame, 1)
         if self.start_record is True:
             self.recordTk()
@@ -135,29 +165,7 @@ class VideoRecorder():
         self.lmain.configure(image=imgtk)
         if self.open is True:
             self.lmain.after(10, self.show_frame)        
-
-
-    # Video starts being recorded
-    def record(self):
-
-        timer_start = time.time()
-        timer_current = 0
-
-
-        while(self.open==True):
-            ret, video_frame = self.video_cap.read()
-            if (ret==True):
-
-                self.video_out.write(video_frame)
-                self.frame_counts += 1
-                #self.window.create_image(0, 0, video_frame)
-                cv2.imshow('video_frame', video_frame)
-                cv2.waitKey(1)
-                if cv2.getWindowProperty('video_frame',cv2.WND_PROP_VISIBLE) < 1:        
-                    self.stop()
-                    break
-            else:
-               break
+            
                
     def recordTk(self):
         timer_start = time.time()
@@ -183,8 +191,10 @@ class VideoRecorder():
 
     # Launches the video recording function using a thread
     def start(self):
+        self.open = True
         video_thread = threading.Thread(target=self.show_frame)
         video_thread.start()
+        print('start: ', self.open)
         self.window.mainloop()
 
 
@@ -226,6 +236,14 @@ class AudioRecorder():
     @set_record.setter
     def set_record(self, record):
         self.record_audio = record
+        
+    @property
+    def setAudioFileName(self):
+        return self.audio_filename
+        
+    @setAudioFileName.setter
+    def setAudioFileName(self, fileName):
+        self.audio_filename = fileName
     
     # Audio starts being recorded
     def record(self):
@@ -257,11 +275,8 @@ class AudioRecorder():
             self.open = False
             time.sleep(1)
             self.stream.stop_stream()
-            print("stop stream!")
-            self.stream.close()
-            print("close")
-            self.audio.terminate()
-            print("Audio stop")
+            self.stream.close() 
+            self.audio.terminate()      
 
             waveFile = wave.open(self.audio_filename, 'wb')
             waveFile.setnchannels(self.channels)
@@ -334,31 +349,3 @@ def stop_AVrecording(filename, audio_recorder, video_recorder):
     # source: https://superuser.com/questions/277642/how-to-merge-audio-and-video-file-in-ffmpeg, last accessed: 13.09.2018
     cmd = "ffmpeg -i temp_video.avi -i temp_audio.wav -c copy " + filename + ".avi"
     subprocess.call(cmd, shell=True)
-	
-	
-# Required and wanted processing of final files
-def file_manager(filename):
-
-    local_path = os.getcwd()
-
-    if os.path.exists(str(local_path) + "/temp_audio.wav"):
-        os.remove(str(local_path) + "/temp_audio.wav")
-
-    if os.path.exists(str(local_path) + "/temp_video.avi"):
-        os.remove(str(local_path) + "/temp_video.avi")
-
-    if os.path.exists(str(local_path) + "/temp_video2.avi"):
-        os.remove(str(local_path) + "/temp_video2.avi")
-
-    if os.path.exists(str(local_path) + "/" + filename + ".avi"):
-        os.remove(str(local_path) + "/" + filename + ".avi")
-        
-'''file_manager("test")
-start_AVrecording("test")
-index = "n"
-while index == "n":
-    print("while")
-    index = (input())
-    if index == "q":
-        break
-stop_AVrecording("test")'''

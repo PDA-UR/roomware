@@ -1,4 +1,5 @@
 from django.db import models
+from django import forms
 
 class RoomReservation(models.Model):
 	user_firstName =  models.CharField(max_length=100, blank=False)
@@ -25,3 +26,7 @@ class DevicesReservation(models.Model):
 	purpose = models.TextField()
 	comments = models.TextField(blank=True)
 	
+class Login(models.Model):
+	Benutzername = models.CharField(max_length=8)
+	Passwort = models.CharField(max_length=32)
+	#,widget=forms.PasswordInput

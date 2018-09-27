@@ -22,15 +22,16 @@ import smtplib
 from bin import hdmi_controller
 from bin import beamer
 from bin import stream as stm
+from bin import login as lgn
 
 from django.shortcuts import render, redirect
-from website.models import RoomReservation, DevicesReservation
-from website.forms import RoomReservationForm, DevicesReservationForm
+from website.models import RoomReservation, DevicesReservation, Login
+from website.forms import RoomReservationForm, DevicesReservationForm, LoginForm
 
 hdmiController = hdmi_controller.HdmiController()
 
 def post_home(request):
-	return render(request, 'index.html', {})
+	return render(request, 'login.html', {})
 	
 def post_media(request):
 	return render(request, 'media.html', {})
@@ -120,18 +121,28 @@ def new_devices_reservation(request):
 	return render(request, 'devices_reservation_inquiry.html', {'form': form})	
 
 def stream(request):
-	stm.file_manager("test")
-	#stm.start_AVrecording("test")
-	"""index = "n"
-	while index == "n":
-		print("while")
-		index = (input())
-		if index == "q":
-			break"""
 	audio_recorder = stm.AudioRecorder()
 	audio_recorder.start()
-	video_recorder = stm.VideoRecorder(audio_recorder)
+	video_recorder = stm.VideoRecorder(audio_recorder, account.get_username)
 	video_recorder.start()
-	print("Stop recording")
 	stm.stop_recording(audio_recorder, video_recorder)
-	return render(request, 'stream.html', {})
+	return redirect('media')
+	
+def login(request):
+	global account
+	if request.method == "POST":
+		form = LoginForm(request.POST)
+		if form.is_valid():
+			post = form.save(commit=False)
+			try:
+				account = lgn.LDAPConnection(post.Benutzername, post.Passwort)
+				connection = account.TestConnection()
+				request.session['Benutzername'] = post.Benutzername
+				return post_media(request)
+			except:
+				form = LoginForm()
+				return render(request, 'login.html', {'form': form})
+	else:
+		form = LoginForm()
+		
+	return render(request, 'login.html', {'form': form})

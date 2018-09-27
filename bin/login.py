@@ -23,32 +23,31 @@ class LDAPConnection:
         else:
             self.__scope = ldap.SCOPE_BASE
             
+    @property
+    def get_username(self):
+        return self.user
+        
+    @get_username.setter
+    def get_username(self, username):
+        self.user = username
+            
     def __connect( self, host, binddn, password, port=636 ):
-        print('connect')
         handle = ldap.initialize('ldaps://ldap3.ur.de:636')
         if handle:
-            print('handle')
             handle.simple_bind_s( binddn, password )
-            print('connected')
             return handle
-        print('not connected')
         return False
     
     def __search( self, handle, basedn, filter, scope=ldap.SCOPE_SUBTREE):
-        print('search')
         if not handle:
-            print('search not found')
             return False
-        print('search found')
         results = handle.search_s( basedn, scope, filter )
         for result in results:
-            #print(result[0])
             self.print_dict(result[1])
         return handle.search_s( basedn, scope, filter )
         
     def print_dict(self, d):
         for key,val in d.items():
-            #if type(val) is list:
             if key == 'urrzSurname':
                 print(str(key) + ":")
                 for i in val:
@@ -71,6 +70,4 @@ class LDAPConnection:
         if not self.__ldap_connection_handle:
             return False
         return len( self.__search( self.__ldap_connection_handle, basedn, filter, self.__scope ) ) != 0
-
-LDAPConnection('raa26335', '2Raumwohnung').TestConnection()
-
+        
