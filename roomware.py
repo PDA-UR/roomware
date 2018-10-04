@@ -6,37 +6,12 @@ import os
 
 DEBUG = True
 SECRET_KEY = '$092qo$uxn=1&08mp4=*$+oxryg6ot$9!l-=_33e6ptsn2poq0'
-ROOT_URLCONF = __name__
-TEMPLATES = [
-	{
-		'BACKEND': 'django.template.backends.django.DjangoTemplates',
-		'DIRS': [
-			'/home/roomuser/Roomware/roomware/templates/'
-		],
-	},
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ALLOWED_HOSTS = [
+	'132.199.131.227',
+	'localhost',	
 ]
-
-STATICFILES_DIRS = [
-	"/home/roomuser/Roomware/roomware/static/",
-]
-'''
-MIDDLEWARE = [
-	'django.middleware.security.SecurityMiddleware',
-	'django.contrib.sessions.middleware.SessionMiddleware',
-	'django.middleware.common.CommonMiddleware',
-	'django.middleware.csrf.CsrfViewMiddleware',
-	'django.contrib.auth.middleware.AuthenticationMiddleware',
-	'django.contrib.messages.middleware.MessageMiddleware',
-	'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-]
-SESSION_ENGINE = [
-	'django.contrib.sessions.backends.signed_cookies',
-]
-
-SESSION_COOKIE_HTTPONLY = [
-	'False',
-]'''
+ROOT_PATH = os.path.dirname(__file__)
 
 INSTALLED_APPS = [
 	'django.contrib.staticfiles',
@@ -51,21 +26,56 @@ INSTALLED_APPS = [
 	'website',
 ]
 
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+
+
+ROOT_URLCONF = __name__
+TEMPLATES = [
+	{
+		'BACKEND': 'django.template.backends.django.DjangoTemplates',
+		'DIRS': [
+			'/home/roomuser/Roomware/roomware/templates/'
+		],
+	},
+]
+
+SESSION_COOKIE_HTTPONLY = True
+
+STATICFILES_DIRS = [
+	'/home/roomuser/Roomware/roomware/static',
+]
+
 	
-STATIC_URL = '/static/'		
 
 urlpatterns = [
 	url(r'', include('urls')),
 ]
 
-#DATABASE_ENGINE = {
-#	}
+STATIC_URL = '/static/'
+'''
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
+'''
 REST_FRAMEWORK = {
-'DEFAULT_PERMISSION_CLASSES': [
-	'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+	'DEFAULT_PERMISSION_CLASSES': [
+		'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
 	],
-'UNAUTHENTICATED_USER': None,
-'DEFAULT_AUTHENTICATION_CLASSES': [],
+	'UNAUTHENTICATED_USER': None,
+	'DEFAULT_AUTHENTICATION_CLASSES': [],
 }

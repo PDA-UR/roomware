@@ -22,6 +22,7 @@ from rest_framework import routers, serializers, viewsets
 
 urlpatterns = [
     url(r'^$', views.login, name='home'),
+    url(r'^logout/$', views.logout, name='logout'),
 	url(r'^media/$', views.post_media, name='media'),
 	url(r'^room/$', views.post_room, name='room'),
 	url(r'^devices/$', views.post_devices, name='devices'),
@@ -30,5 +31,11 @@ urlpatterns = [
 	url(r'^devices/new_devices_reservation/$', views.new_devices_reservation, name='new_devices_reservation'),
 	url(r'^', include('api.urls')),
 	url(r'^stream/$', views.stream, name='stream'),
-	url(r'^login/$', views.login, name='login')
+	url(r'^login/$', views.login, name='login'),
+	#url(r'^files/$', views.stream_files, name='files'),
+	url(r'^link/$', views.stream_file, name='link'),
+	url(r'^link/(?P<file>[\w.-]+)/$', views.stream_file, name='link'),
+	url(r'^delete/$', views.delete_file, name='delete'),
+	url(r'^delete/(?P<file>[\w.-]+)/$', views.delete_file, name='delete'),
+	url(r'^deleteAll/$', views.delete_all_files, name='deleteAll'),
 ]

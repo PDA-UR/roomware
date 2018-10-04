@@ -321,3 +321,14 @@ form {
 	heigth: 500px;
 
 }
+
+.delete button{
+	width: 1% !important;
+	padding: 0px !important;
+	
+}
+
+#deleteAll{
+	width: 7% !important;
+	padding: 0px !important;
+}

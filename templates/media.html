@@ -25,10 +25,15 @@
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
   </a>
+  <a href="{% url 'logout' %}" class="elements">Logout</a>
 </div>
     <h1>Mediensteuerung</h1>
     
-    
+    <ul>
+    	{% for obj in grouped_objects %}
+    		<li><a href="{% url 'filestodownload' obj %}">{{ obj }}"</a></li>
+    	{% endfor %}
+	</ul>
     <div class="sidenav" id="mySidenav">
     		<a href="#" id="menuElementSidenavResponsive"></a>
     		<a href="#" class="active" onclick="changeToBeamer()">Projektoren</a>
@@ -42,6 +47,7 @@
     	<div id="beamerContent">
     		<h3>Steuerung Projektoren</h3>
     		<form action="{% url 'hdmi' %}" method='POST' id="labor_form">
+    			{%csrf_token%}
     			<input class="rectangle" value="1" name="output11" type="submit"></input>
     			<input class="rectangle" value="1" name="output12" type="submit"></input>
     			<input class="rectangle" value="1" name="output13" type="submit"></input>

@@ -14,27 +14,31 @@
     <script src="resources/bootstrap-4.1.3-dist/js/bootstrap.min.js"></script>
 </head>
 <body>
+
 <div class="topnav" id="myTopnav">
   <a href="#" id="menuElementTopnavResponsive"></a>
-  <a href="{% url 'home' %}" class="elements">Übersicht</a>
+  <a href="{% url 'home' %}" class="elements active">Übersicht</a>
   <a href="{% url 'media' %}" class="elements">Mediensteuerung</a>
-  <a href="{% url 'room' %}" class="elements active">Raumbelegung</a>
+  <a href="{% url 'room' %}" class="elements">Raumbelegung</a>
   <a href="{% url 'devices' %}" class="elements">Gerätereservierung</a>
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
   </a>
+    <a href="{% url 'logout' %}" class="elements">Logout</a>
 </div>
-    <h1>Raumbelegungsplan VR4</h1>
-    
-    <a href="{% url 'new_room_reservation' %}"><h4>Neue Reservierung</h4></a>
-    <div class="reservation_content">
-    	{% block content %}
-    	{% endblock %}
-    </div>
-    <a href="https://calpub.uni-regensburg.de/gwcal/calendar/YWRtaW4ucmF1bWluZm9ybWF0aW9uQHNwcmFjaGxpdC51bmktcmVnZW5zYnVyZy5kZT9jbj01QjlGQUE3MC51bmktcmVnZW5zYnVyZy1tdGExLlNMMS4xMDAuMTcwNzg2RC4xLkRDLjE?Calendar.format=html
-"><h4>Raumbelegungsplan</h4></a>
+
+    <h1>Übersicht Stream</h1>
+    <a href="{% url 'deleteAll' %}"><button id='deleteAll' type="button">Alles löschen</button></a>
+    <ul>
+    	{% for file in files %}
 
 
+    		<li>
+    		<a href="{% url 'delete' file=file %}" class="delete"><button type="button">D</button></a>
+    		<a href="{% url 'link' file=file %}">{{ file }}</a>
+    		</li>
+    	{% endfor %}
+	</ul>
 <script>
 function myFunction() {
     var x = document.getElementById("myTopnav");
