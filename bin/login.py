@@ -87,6 +87,3 @@ class LDAPConnection:
         conn_ldap = [connection, self.ldap_connection]
         return conn_ldap
         
-
-#LDAPConnection('raa', '').TestConnection()
-#'mel45452', "d1ll.dapp
