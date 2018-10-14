@@ -1,10 +1,10 @@
 {% extends 'devices.html' %}
 
 {% block content %}
-	<h1>Reservierung</h1> 
+	<h5>Reservierung</h5> 
 	<form method="POST"> {% csrf_token %}
 		{{ form.as_p }}
-		<button type="submit"> Save </button>
+		<button class="save_device_reservation" type="submit"> Save </button>
 	</form>
 
 {% endblock %}

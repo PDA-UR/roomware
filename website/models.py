@@ -1,32 +1,38 @@
 from django.db import models
 from django import forms
+from django.contrib.auth.models import User
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
 
+# model for room reservation form
 class RoomReservation(models.Model):
-	user_firstName =  models.CharField(max_length=100, blank=False)
-	user_secondName = models.CharField(max_length=100)
-	user_email = models.EmailField()
-	reservation_labor = models.BooleanField()
-	reservation_studio = models.BooleanField()
-	reservation_workshop = models.BooleanField()
-	date_start = models.DateField()
-	date_end = models.DateField()
-	time_start = models.TimeField()
-	time_end = models.TimeField()
-	purpose = models.TextField()
-	comments = models.TextField(blank=True)
+	Vorname =  models.CharField(max_length=100, blank=False)
+	Nachname = models.CharField(max_length=100)
+	Email = models.EmailField()
+	Reservierung_Labor = models.BooleanField()
+	Reservierung_Studio = models.BooleanField()
+	Reservierung_Werkstatt = models.BooleanField()
+	Datum_von = models.CharField(max_length=100)
+	Datum_bis = models.CharField(max_length=100)
+	Uhrzeit_Start = models.CharField(max_length=100)
+	Uhrzeit_Ende = models.CharField(max_length=100)
+	Zweck = models.TextField(max_length=100)
+	Kommentar = models.TextField(blank=True)
 	
-
+# model for devices reservation form
 class DevicesReservation(models.Model):
-	user_firstName =  models.CharField(max_length=100)
-	user_secondName = models.CharField(max_length=100)
-	user_email = models.EmailField()
-	date_start = models.DateField()
-	date_end = models.DateField()
-	device = models.CharField(max_length=100)
-	purpose = models.TextField()
-	comments = models.TextField(blank=True)
-	
+	Vorname =  models.CharField(max_length=100)
+	Nachname = models.CharField(max_length=100)
+	Email = models.EmailField()
+	Datum_von = models.CharField(max_length=100)
+	Datum_bis = models.CharField(max_length=100)
+	Gerät = models.CharField(max_length=100)
+	Zweck = models.TextField()
+	Kommentar = models.TextField(blank=True)
+
+# model for login	
 class Login(models.Model):
 	Benutzername = models.CharField(max_length=8)
 	Passwort = models.CharField(max_length=32)
-	#,widget=forms.PasswordInput

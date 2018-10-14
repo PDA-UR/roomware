@@ -1,4 +1,8 @@
-              {% load static %}
+<!--
+hamburger navbar on every screensize
+https://mdbootstrap.com/components/bootstrap-hamburger-menu/ last access: 13.10.2018
+-->      
+        {% load static %}
 <!DOCTYPE html>
 
 <html>
@@ -8,117 +12,497 @@
     <meta name="description" content="Mediensteuerung VR4, Universität Regensburg">
     <meta name="content-language" content="DE">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-4.1.3-dist/css/bootstrap.min.css' %}"> 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/layout.css' %}"> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="{% static 'css/bootstrap-4.1.3-dist/js/bootstrap.min.js' %}"></script>
-    
-    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-4.1.3-dist/css/bootstrap.min.css' %}">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/layout.css' %}">
 </head>
-<body>
-<div class="topnav" id="myTopnav">
-  <a href="#" id="menuElementTopnavResponsive"></a>
-  <a href="{% url 'home' %}" class="elements">Übersicht</a>
-  <a href="{% url 'media' %}" class="elements active">Mediensteuerung</a>
-  <a href="{% url 'room' %}" class="elements">Raumbelegung</a>
-  <a href="{% url 'devices' %}" class="elements">Gerätereservierung</a>
-  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-    <i class="fa fa-bars"></i>
-  </a>
-  <a href="{% url 'logout' %}" class="elements">Logout</a>
-</div>
-    <h1>Mediensteuerung</h1>
-    
+
+<body onunload="logout()">
+    <div class="navbar-top-element">
+        <div class="nav_element">
+            <div class="brand-text"><a class="navbar-brand navbrandtext" href="#">Roomware</a></div>
+        </div>
+        <div class="nav_help_logout">
+            <div class="help_logout">
+                <div class="wiki"><a href="http://lab.mi.ur.de" target='_blank'class="navbar-brand fas fa-question"></a></div>
+                <div class="brand-logout"><a class="navbar-brand fas fa-sign-out-alt" href="{% url 'logout' %}" class="elements"></a></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--Navbar-->
+    <nav class="navbar navbar-light ">
+        <!-- Collapse button -->
+        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent20" aria-controls="navbarSupportedContent20" aria-expanded="false" aria-label="Toggle navigation"><div class="animated-icon1"><span></span><span></span><span></span></div></button>
+        <!-- Navbar brand -->
+
+
+
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent20">
+
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto">
+                <!-- change the class to class="nav-item active" to highlight the active listelement -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'media' %}">Mediensteuerung</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'room' %}">Raumreservierung</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'devices' %}">Gerätereservierung</a>
+                </li>
+
+            </ul>
+            <!-- Links -->
+
+        </div>
+        <!-- Collapsible content -->
+
+    </nav>
+
+    <!--/.Navbar-->
     <ul>
     	{% for obj in grouped_objects %}
     		<li><a href="{% url 'filestodownload' obj %}">{{ obj }}"</a></li>
     	{% endfor %}
 	</ul>
-    <div class="sidenav" id="mySidenav">
-    		<a href="#" id="menuElementSidenavResponsive"></a>
-    		<a href="#" class="active" onclick="changeToBeamer()">Projektoren</a>
-    		<a href="#" onclick="changeToSockets()">Steckdosen</a>
-    		<a href="#" onclick="changeToCameras()">Kameras</a>
-    		<a href="javascript:void(0);" class="icon" onclick="mySidenavFunction()">
-    			<i class="fa fa-bars"></i>
- 			</a>
-    </div>
     <div id="content">
-    	<div id="beamerContent">
-    		<h3>Steuerung Projektoren</h3>
-    		<form action="{% url 'hdmi' %}" method='POST' id="labor_form">
-    			{%csrf_token%}
-    			<input class="rectangle" value="1" name="output11" type="submit"></input>
-    			<input class="rectangle" value="1" name="output12" type="submit"></input>
-    			<input class="rectangle" value="1" name="output13" type="submit"></input>
-    			<input class="rectangle" value="1" name="output14" type="submit"></input>
-    		</form>
-    	</div>
-    	<div class="hide" id="powerContent">
-            <h3>Steuerung Steckdosen</h3>
-            <a class="sockets"><button id="socketsBtn" type="button">Steckdose 1</button></a>
-        </div>
-        <div class="hide" id="cameraContent">
-            <h3>Steuerung Kameras</h3>
-    		<a href="{% url 'stream' %}" class="camera"><button id="cameraBtn" type="button">Kamera 1</button></a>
+        <div class="container roomware">
+            <div class="row">
+
+                <div class="col-lg-4 col-md-12 col-sm-12 studio">
+                    <div id="rectangle">
+                        <div class="room">
+                        <h2>Studio</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                <div class="rectangle1">
+                                    <form action="{% url 'beamer' %}" method='POST' id="studio_form_beamer_1_head">
+    			                        {% csrf_token %}
+                                    <div class="row">
+                                    <div class="col-lg-9 col-md-9 col-sm-9 {{ beamer_headline_1 }}">
+                                    <h4>Beamer 1</h4>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-3 no_padding">
+                                    <input class="{{ beamer_onoff_1 }}" value="" name="beamer1" type="submit"></input>
+                                    </div>
+                                    </div>
+                                </form>
+                                		<form action="{% url 'hdmi' %}" method='POST' id="studio_form_beamer_1">
+                                			{%csrf_token%}
+                                    <div class="container small_rectangle_container no_padding">
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-3 col-sm-3 small_rectangle ">
+         			                                            <input class="rectangle {{ beamer_11 }}" value="1" name="output11" type="submit"></input>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 small_rectangle ">
+                                                    			<input class="rectangle {{ beamer_12 }}" value="2" name="output12" type="submit"></input>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 small_rectangle ">
+                                                      			<input class="rectangle {{ beamer_13 }}" value="3" name="output13" type="submit"></input>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 small_rectangle ">
+                                                     			<input class="rectangle {{ beamer_14 }}" value="4" name="output14" type="submit"></input>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                
+                                </form>
+
+                                </div>
+
+                            </div>
+                            <div class="col-lg-6 .ml-auto col-md-12 col-sm-12">
+                                <div class="rectangle1">
+                                    <form action="{% url 'beamer' %}" method='POST' id="studio_form_beamer_2_head">
+    			                {%csrf_token%}
+                                   <div class="row">
+                                    <div class="col-lg-9 col-md-9 col-sm-9 {{ beamer_headline_2 }}">
+                                    <h4>Beamer 2</h4>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-3 no_padding">
+                                    <input class="{{ beamer_onoff_2 }}" value="" name="beamer2" type="submit"></input>
+                                    </div>
+                                    </div>
+                                </form>
+                                		<form action="{% url 'hdmi' %}" method='POST' id="studio_form_beamer_2">
+                                			{%csrf_token%}
+                                    <div class="container small_rectangle_container no_padding">
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-3 col-sm-3 small_rectangle ">
+         			                                            <input class="rectangle {{ beamer_21 }}" value="1" name="output21" type="submit"></input>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 small_rectangle ">
+                                                    			<input class="rectangle {{ beamer_22 }}" value="2" name="output22" type="submit"></input>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 small_rectangle ">
+                                                      			<input class="rectangle {{ beamer_23 }}" value="3" name="output23" type="submit"></input>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 small_rectangle ">
+                                                     			<input class="rectangle {{ beamer_24 }}" value="4" name="output24" type="submit"></input>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                <div class="rectangle1">
+         			                   
+                                    
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 {{ usb }}">
+                                                    <h4>USB-Geräte</h4>
+                                            </div>
+                                            </div>
+                                        <form action="{% url 'usb_switch' %}" method='POST' id="usb_switch">
+                                            			{% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4 col-sm-4 small_rectangle no_padding">
+                                                    			<input class="rectangle {{ usb_output_2 }}" value="2" name="usb_output2" type="submit"></input>
+
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-4 small_rectangle no_padding">
+                                                      			<input class="rectangle {{ usb_output_3 }}" value="3" name="usb_output3" type="submit"></input>
+
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-4 small_rectangle no_padding">
+                                                     			<input class="rectangle {{ usb_output_4 }}" value="4" name="usb_output4" type="submit"></input>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                                </div>
+                                            </div>
+
+                                   
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                <div class="rectangle1">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 {{ usb }}">
+                                    <button class="rectangle {{ stream }}" onclick="stream_auth()" id="studio_stream">Stream</button>
+                                        </div>
+                                        </div>
+                                     <form action="{% url 'link' %}" method='POST' >
+                                            			{% csrf_token %}
+                                    <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 small_rectangle no_padding">
+                                                    			<input class="rectangle output_off" value="Videos" name="videos" type="submit"></input>
+
+                                            </div>
+                                        </div>
+                                     </form>
+                            </div>
+
+                        </div>
+                        
+                            </div>
+                            <div class="row">
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                <div class="rectangle1">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 {{ powerstrip_1 }}">
+                                            <h4>Steckdosen 1</h4>
+                                        </div>
+                                    </div>
+                            		<form action="{% url 'powerstrip' %}" method='POST' id="studio_powerstrip_1">
+                            			{% csrf_token %}
+                                    <div class="container small_rectangle_container no_padding">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 no_padding">		
+                                                    <input class="rectangle {{ socket_12 }}" value="2" name="socket12" type="submit"></input>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                    </form>
+
+                                </div>
+
+                            </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                                <div class="rectangle1">
+                                    <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 {{ light_1 }}">
+                                        <h4>Licht 1</h4>
+                                    </div>
+                                    </div>
+                                                    <form action="{% url 'light' %}" method='POST' id="light">
+    			                                        {% csrf_token %}
+                                                <div class="container small_rectangle_container no_padding">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 no_padding">		
+                                                    <input type="submit" class="{{ lamp_1 }}"value="" name="light_1"></input>
+                                        </div>
+
+
+                                        </div>
+
+                                    </div>
+                                                    </form>
+                                </div>
+
+                            </div>
+                          
+                        
+                     </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-12 col-sm-12 labor">
+                    <div id="rectangle">
+                        <div class="room">
+                        <h2>Labor</h2>
+                        </div>
+                        <div class="row">
+                            
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                <div class="rectangle1">
+                                <form action="{% url 'beamer' %}" method='POST' id="labor_form_beamer_3_head">
+    			                        {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-lg-9 col-md-9 col-sm-9 {{ beamer_headline_3 }}">
+                                            <h4>Beamer 3</h4>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-sm-3 no_padding">
+                                            <input class="{{ beamer_onoff_3 }}" value="" name="beamer3" type="submit"></input>
+                                        </div>
+                                    </div>
+                                </form>
+                        		<form action="{% url 'hdmi' %}" method='POST' id="labor_form_beamer_1">
+                        			{%csrf_token%}
+                                    <div class="container small_rectangle_container no_padding">
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-3 col-sm-3 small_rectangle ">
+         			                                            <input class="rectangle {{ beamer_31 }}" value="1" name="output31" type="submit"></input>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 small_rectangle ">
+                                                    			<input class="rectangle {{ beamer_32 }}" value="2" name="output32" type="submit"></input>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 small_rectangle ">
+                                                      			<input class="rectangle {{ beamer_33 }}" value="3" name="output33" type="submit"></input>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 small_rectangle ">
+                                                     			<input class="rectangle {{ beamer_34 }}" value="4" name="output34" type="submit"></input>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-6 .ml-auto col-md-12 col-sm-12">
+                                <div class="rectangle1">
+                                <form action="{% url 'beamer' %}" method='POST' id="labor_form_beamer_4_head">
+    			                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-lg-9 col-md-9 col-sm-9 {{ beamer_headline_4 }}">
+                                            <h4>Beamer 4</h4>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-sm-3 no_padding">
+                                            <input class="{{ beamer_onoff_4 }}" value="" name="beamer4" type="submit"></input>
+                                        </div>
+                                    </div>
+                                </form>
+                                   <form action="{% url 'hdmi' %}" method='POST' id="labor_form_beamer_2">
+                                			{%csrf_token%}
+                                    <div class="container small_rectangle_container no_padding">
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-3 col-sm-3 small_rectangle ">
+         			                                            <input class="rectangle {{ beamer_41 }}" value="1" name="output41" type="submit"></input>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 small_rectangle ">
+                                                    			<input class="rectangle {{ beamer_42 }}" value="2" name="output42" type="submit"></input>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 small_rectangle ">
+                                                      			<input class="rectangle {{ beamer_43 }}" value="3" name="output43" type="submit"></input>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 small_rectangle ">
+                                                     			<input class="rectangle {{ beamer_44 }}" value="4" name="output44" type="submit"></input>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                <div class="rectangle1">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 {{ powerstrip_2 }}">
+                                        <h4>Steckdosen 2</h4>
+                                    </div>
+                                   </div>
+                        		<form action="{% url 'powerstrip' %}" method='POST' id="labor_powerstrip_2">
+                        			{% csrf_token %}
+                                    <div class="container small_rectangle_container no_padding">
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 no_padding">
+	                                            <input class="rectangle {{ socket_22 }}" value="2" name="socket22" type="submit"></input>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 no_padding">
+                                                <input class="rectangle {{ socket_23 }}" value="3" name="socket23" type="submit"></input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-12 col-sm-12 werkstatt">
+                    <div id="rectangle">
+                        <div class="room">
+                        <h2>Werkstatt</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    
-<script>
-function myFunction() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "topnav") {
-        x.className += " responsive";
-    } else {
-        x.className = "topnav";
-    }
-}
-function mySidenavFunction() {
-    var x = document.getElementById("mySidenav");
-    if (x.className === "sidenav") {
-        x.className += " responsive";
-        console.log(x.className);
-    } else {
-        x.className = "sidenav";
-    }
-}
 
-function changeToBeamer() {
-	var beamer = document.getElementById("beamerContent");
-	beamer.className = "";
-	
-	var sockets = document.getElementById("powerContent");
-	sockets.className = "hide";
-	
-	var cameras = document.getElementById("cameraContent");
-	cameras.className = "hide";
-	
-}
 
-function changeToSockets() {
-	var beamer = document.getElementById("beamerContent");
-	beamer.className = "hide";
-	
-	var sockets = document.getElementById("powerContent");
-	sockets.className = "";
-	
-	var cameras = document.getElementById("cameraContent");
-	cameras.className = "hide";
-	
-}
 
-function changeToCameras() {
-	var beamer = document.getElementById("beamerContent");
-	beamer.className = "hide";
-	
-	var sockets = document.getElementById("powerContent");
-	sockets.className = "hide";
-	
-	var cameras = document.getElementById("cameraContent");
-	cameras.className = "";
-	
-}
-</script>
+
+
+
+
+
+
+
+
+
+    <script>
+        function changeToBeamer() {
+            var beamer = document.getElementById("beamerContent");
+            beamer.className = "";
+
+            var sockets = document.getElementById("powerContent");
+            sockets.className = "hide";
+
+            var cameras = document.getElementById("cameraContent");
+            cameras.className = "hide";
+
+        }
+
+        function changeToSockets() {
+            var beamer = document.getElementById("beamerContent");
+            beamer.className = "hide";
+
+            var sockets = document.getElementById("powerContent");
+            sockets.className = "";
+
+            var cameras = document.getElementById("cameraContent");
+            cameras.className = "hide";
+
+        }
+
+        function changeToCameras() {
+            var beamer = document.getElementById("beamerContent");
+            beamer.className = "hide";
+
+            var sockets = document.getElementById("powerContent");
+            sockets.className = "hide";
+
+            var cameras = document.getElementById("cameraContent");
+            cameras.className = "";
+
+        }
+
+        // Works everywhere
+        $(document).ready(function() {
+
+            // Hide/show animation hamburger function
+            $('.navbar-toggler').on('click', function() {
+
+                // Take this line to first hamburger animations
+                $('.animated-icon1').toggleClass('open');
+
+                // Take this line to second hamburger animation
+                $('.animated-icon3').toggleClass('open');
+
+                // Take this line to third hamburger animation
+                $('.animated-icon4').toggleClass('open');
+            });
+
+        });
+    </script>
+ <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="{% static 'css/bootstrap-4.1.3-dist/js/bootstrap.min.js' %}"></script>
+    <script>
+        function logout(){
+            console.log("logout")
+            var http_request = new XMLHttpRequest();
+            http_request.open("GET", "http://lab.mi.ur.de:8000/logout/");
+            http_request.send();
+        }
+    </script>
+
+    <script>
+        function stream_auth(){
+            var http_request = new XMLHttpRequest();
+            http_request.open("GET", "http://lab.mi.ur.de:8000/stream/", true);
+            http_request.onload = function(e){
+                if (http_request.getResponseHeader("stream") === "true"){
+                    window.open("http://lab.mi.ur.de:8000/stream_start/", "_blank",  "toolbar=yes, location=yes, status=yes, menubar=yes, scrollbars=yes");  
+                    
+                              
+                }
+                stream_link = document.getElementById("studio_stream");
+                stream_link.disabled = true;
+            }
+            http_request.send(null);
+
+        }
+        function start_stream(){
+            var http_request = new XMLHttpRequest();
+            http_request.open("GET", "http://lab.mi.ur.de:8000/stream_start/");
+            http_request.onload = function(e){
+            }
+            http_request.send();
+            
+        }
+        function redirect_to_media(){
+            var http_request = new XMLHttpRequest();
+            http_request.open("GET", "http://lab.mi.ur.de:8000/media/");
+            http_request.send();
+        }
+    </script>
+
 </body>
+ <footer>
+<a href="http://lab.mi.ur.de" target="_blank">Wiki</a>
+<p class="seperator">|</p>
+<a href="https://www.uni-regensburg.de/impressum/" target="_blank">Impressum</a>
+<p class="seperator">|</p>
+<a href="https://www.uni-regensburg.de/datenschutz/" target="_blank">Datenschutz</a>
+</footer> 
 </html>

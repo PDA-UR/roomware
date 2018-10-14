@@ -3,41 +3,40 @@
 
 import django
 from bin import hdmi_switch
+import os
+from configparser import ConfigParser
 
 class HdmiController():
 
-	def __init__(self):
-		super().__init__()
-		self.hdmiSwitch = hdmi_switch.hdmiSwitch()
-		self.input = '0'
-		self.output = '0'
+    def __init__(self):
+        super().__init__()
+        os.chdir('/home/roomuser/Roomware/roomware')
+        self.config = ConfigParser()
+        self.config.read('config.ini')
+        self.hdmi_switch = hdmi_switch.HdmiSwitch()
+        self.input = self.config.get('hdmi_controller', 'null')
+        self.output = self.config.get('hdmi_controller', 'null')
 	
-	@property
-	def setInput(self):
-		return self.input
+    @property
+    def set_input(self):
+        return self.input
 	
-	@setInput.setter	
-	def setInput(self, input):
-		self.input = input
+    @set_input.setter	
+    def set_input(self, inputs):
+        self.input = inputs
 	
-	@property
-	def setOutput(self):
-		return self.output
+    @property
+    def set_output(self):
+        return self.output
 	
-	@setOutput.setter
-	def setOutput(self, output):
-		self.output = output
+    @set_output.setter
+    def set_output(self, output):
+        self.output = output
 		
-	def toggleConnection(self):
-		if self.input != '0' and self.output != '0':
-			connection = self.hdmiSwitch.outputConnections(self.output)
-			if self.input == connection:
-				self.hdmiSwitch.switchOff(self.output)
-			else:
-				self.hdmiSwitch.connect(self.input, self.output)
-				
-	#def switchStatusDevices():
-		
-	
-		
-	
+    def toggle_connection(self):
+        if self.input != self.config.get('hdmi_controller', 'null') and self.output != self.config.get('hdmi_controller', 'null'):
+            connection = self.hdmi_switch.output_connections(self.output)
+            if self.input == connection:
+                self.hdmi_switch.switch_off(self.output)
+            else:
+                self.hdmi_switch.connect(self.input, self.output)

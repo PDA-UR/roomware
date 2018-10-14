@@ -14,63 +14,43 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/layout.css' %}">
 </head>
 <body>
-    <div class="navbar-top-element">
+  <div class="navbar-top-element">
         <div class="nav_element">
             <div class="brand-text"><a class="navbar-brand navbrandtext" href="#">Roomware</a></div>
         </div>
-        <div class="nav_help_logout">
-            <div class="help_logout">
-                <div class="wiki"><a class="navbar-brand fas fa-question" href="http://lab.mi.ur.de:8000"><span  class="hint_text">Hilfe & Tipps im Wiki</span></a></div>
-                <div class="brand-logout"><a class="navbar-brand fas fa-sign-out-alt" href="{% url 'logout' %}" class="elements"></a></div>
-            </div>
-        </div>
+
 
     </div>
-
     <!--Navbar-->
-    <nav class="navbar navbar-light ">
-        <!-- Collapse button -->
-        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent20" aria-controls="navbarSupportedContent20" aria-expanded="false" aria-label="Toggle navigation"><div class="animated-icon1"><span></span><span></span><span></span></div></button>
-        <!-- Navbar brand -->
-
-
-
-
-        <!-- Collapsible content -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent20">
-
-            <!-- Links -->
-            <ul class="navbar-nav mr-auto">
-                <!-- change the class to class="nav-item active" to highlight the active listelement -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'media' %}">Mediensteuerung</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'room' %}">Raumreservierung</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'devices' %}">Gerätereservierung</a>
-                </li>
-
-            </ul>
-            <!-- Links -->
-
-        </div>
-        <!-- Collapsible content -->
-
-    </nav>
+    <nav class="navbar navbar-light stream_navbar"></nav>
 
     <!--/.Navbar-->
-    <div id="content_devices">
-    <h1 class="devices_header">Übersicht Gerätereservierung</h1>
-    <a href="https://wiki.mi.ur.de/lab/ausstattung" target="blank"><h4 class="devices">Geräteliste</h4></a>
-    <a href="{% url 'new_devices_reservation' %}"><h4 class="devices">Neue Anfrage zur Gerätereservierung</h4></a>
-    <div class="reservation_content">
-    	{% block content %}
-    	{% endblock %}
+
+
+<div class="login_image_content">
+
+<div class="container login_submit_button">
+  <div class="row">
+    <div class="col-lg-12 col-md-6 offset-md-1 col-sm-12 login_form">
+<div id="content_api">
+    <h3>API Mediensteuerung VR4</h3>
+    
+    <p>Folgende Geräte können über die API gesteuert werden.</p>
+    <ul>
+        <li>Beamer</li>
+        <li>Steckdosenleiste</li>
+        <li>HDMI-Switch</li>
+        <li>USB-Switch</li>
+    </ul>
+</div>
+</div>
+  </div>
+
+</div>
+    <div class="login_background_image">
+    <img src="/static/img/roomie_login.jpg">
     </div>
 </div>
-
 <script>
 
         // Works everywhere

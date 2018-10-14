@@ -4,38 +4,52 @@
 import serial as ser
 from bin import powerstrip as power
 import time
+from configparser import ConfigParser
+import os
 
 class Beamer():
 
-	def __init__(self):
-		super().__init__()
-		self.serial = ser.Serial('/dev/ttyUSB0')
-		self.serial.baudrate = 19200
-		self.serial.bytesize = 8
-		self.serial.parity = 'N'
-		self.serial.stopbits = 1
-		self.serial.timeout = 5
-		self.powerStrip = power.Powerstrip()
-        
-	def on(self):
-		self.powerStrip.switchOn()
-		time.sleep(5)
-		input_on = b'\xbe\xef\x10\x05\x00\xc6\xff\x11\x11\x01\x00\x01'
-		self.serial.write(input_on)
-		
-	def off(self):
-		input_off = b'\xbe\xef\x10\x05\x00\x0c\x3e\x11\x11\x01\x00\x18'
-		self.serial.write(input_off)
-		time.sleep(15)
-		self.powerStrip.switchOff()
+    def __init__(self, usb, baudrate, bytesize, parity, stopbits, timeout):
+        super().__init__()
+        os.chdir('/home/roomuser/Roomware/roomware')
+        config = ConfigParser()
+        config.read('config.ini')
+        self.serial = ser.Serial(usb)
+        self.serial.baudrate = baudrate
+        self.serial.bytesize = bytesize
+        self.serial.parity = parity
+        self.serial.stopbits = stopbits
+        self.serial.timeout = timeout
+        self.sleep_on = config.getint('beamer', 'sleep_on')
+        self.sleep_off = config.getint('beamer', 'sleep_off')
+        self.state_size = config.getint('beamer', 'state_size')
+        self.byteorder = config.get('beamer', 'byteorder')
+        self.length_on = config.get('beamer', 'length_on')
+        self.length_off = config.get('beamer', 'length_off')
+        self.bytelength = config.getint('beamer', 'bytelength')
+    
+    #switch on beamer with given input hex code    
+    def on(self, input_on):
+        time.sleep(self.sleep_on)
+        self.serial.write(input_on)
+        time.sleep(self.sleep_on)
 	
-	def changeState(self):
-		self.serial.write(b'\xbe\xef\x10\x05\x00\x46\x7e\x11\x11\x01\x00\xff')
-		s = self.serial.read(size=3)
-		s_hex = hex(int.from_bytes(s, byteorder='little'))
-		status = s_hex[2]
-		if str(status) == '0':
-			self.on()
-		if str(status) == '3':
-			self.off()		
+    #switch off beamer with given input hex code	
+    def off(self, input_off):
+        time.sleep(self.sleep_on)
+        self.serial.write(input_off)
+        time.sleep(self.sleep_off)
+
+    #reads in the input hex code for status query and switch on or off in dependence 
+    #of the current state 
+    def change_state(self, input_change_state, input_on, input_off):
+        time.sleep(self.sleep_on)
+        self.serial.write(input_change_state)
+        s = self.serial.read(size=self.state_size)
+        s_hex = hex(int.from_bytes(s, byteorder=self.byteorder))
+        status = s_hex[self.bytelength]
+        if str(status) == self.length_on:
+            self.on(input_on)
+        if str(status) == self.length_off:
+            self.off(input_off)		
 	
