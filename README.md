@@ -1,5 +1,3 @@
 # roomware
 ***WIP*** roomware server for lab TB-VR4
-
-energenie Steckdosenleiste Protokoll:
-https://github.com/unterwulf/egctl
+ For further information see http://lab.mi.ur.de
